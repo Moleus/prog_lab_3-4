@@ -2,7 +2,7 @@ package com.lab3.entities;
 
 import com.lab3.locations.AbstractInhabitedPlace;
 
-public class IaIa extends Character {
+public class IaIa extends Animal {
   public IaIa(String name) { 
     super(name);
   }

@@ -33,9 +33,8 @@ public abstract class Character implements Moveable, AbleToHear, AbleToInteractW
 
 
 	public void pullOut(House house, Place newPlace, Thing ... things) {
-		System.out.print("Персонаж " + this.getName() + " вытаскивал предмет " + "\"" + things[0] + "\"" );
+		System.out.println("Персонаж " + this.getName() + " вытаскивал предмет " + "\"" + things[0] + "\" " );
 		for (Thing thing : things) {
-			System.out.println(thing);
       this.moveThingToPlace(thing, newPlace);
 		}
 		System.out.println(" из локации " + "\"" + house.toString() +  "\"" + " наружу");
@@ -72,7 +71,7 @@ public abstract class Character implements Moveable, AbleToHear, AbleToInteractW
 	}
   
 	public void moveThingToPlace(Thing thing, Place newPlace) {
-    System.out.print("Персонаж " + this.getName() + " взял предмет" + thing.toString() + " и понес на место " + "\"" + newPlace.toString() + "\"");
+    System.out.print("Персонаж " + this.getName() + " взял предмет " + thing.toString() + " и понес на место " + "\"" + newPlace.toString() + "\"");
     this.place.removeThing(thing);
     newPlace.addThing(thing);
   }

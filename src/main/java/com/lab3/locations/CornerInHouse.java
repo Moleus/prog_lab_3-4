@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import com.lab3.enums.Cleanliness;
 import com.lab3.enums.Thing;
+import com.lab3.interfaces.AbleGetDirty;
 
-public class CornerInHouse extends Place {
+public class CornerInHouse extends Place implements AbleGetDirty {
   private Cleanliness cleanlinessState;
   
   private ArrayList<Thing> things;

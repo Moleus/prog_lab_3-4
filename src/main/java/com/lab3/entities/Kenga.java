@@ -3,7 +3,7 @@ package com.lab3.entities;
 import com.lab3.enums.Thing;
 import com.lab3.locations.AbstractInhabitedPlace;
 
-public class Kenga extends Character {
+public class Kenga extends Animal {
 	private boolean nervousFlag = false;
   public Kenga(String name) { 
     super(name);

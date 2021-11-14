@@ -12,11 +12,14 @@ public enum Cleanliness {
 	CLEAN("чистый");
 
   private String name;
+	private static Random RANDOM = new Random();
 
-  Cleanliness(String name) { this.name = name; }
+  Cleanliness(String name) { 
+		this.name = name; 
+	}
 	
 	public static Cleanliness getRandomState() {
-		return Cleanliness.values()[new Random().nextInt(Cleanliness.values().length - 3)];
+		return Cleanliness.values()[RANDOM.nextInt(3)];
 	}
 
 	@Override

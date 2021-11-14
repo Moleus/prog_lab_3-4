@@ -2,7 +2,7 @@ package com.lab3.things;
 
 import com.lab3.enums.Thing;
 
-public class Rope extends AbstractThing {
+public class Rope extends AbstractTool {
   public Rope(String name) {
     super(name);
   }
