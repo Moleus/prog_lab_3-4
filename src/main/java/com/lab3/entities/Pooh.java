@@ -8,6 +8,6 @@ public class Pooh extends Character {
   }
 
   public void doAction(String action) {
-    System.out.println("Персонаж " + name + " " +  action);
+    System.out.println("Персонаж " + name + " медленно и нерасторопно " +  action);
   }
 }

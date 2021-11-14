@@ -4,6 +4,7 @@ import com.lab3.interfaces.Moveable;
 import com.lab3.locations.AbstractInhabitedPlace;
 import com.lab3.locations.House;
 import com.lab3.locations.Place;
+import com.lab3.things.Rope;
 
 import java.util.Objects;
 import java.util.Random;
@@ -71,14 +72,19 @@ public abstract class Character implements Moveable, AbleToHear, AbleToInteractW
 	}
   
 	public void moveThingToPlace(Thing thing, Place newPlace) {
-    System.out.print(this.getName() + " взял предмет" + thing.toString() + " и понес на место " + "\"" + newPlace.toString() + "\"");
+    System.out.print("Персонаж " + this.getName() + " взял предмет" + thing.toString() + " и понес на место " + "\"" + newPlace.toString() + "\"");
     this.place.removeThing(thing);
     newPlace.addThing(thing);
   }
 
 	public void pickUpThing(Thing thing) {
-    System.out.println(this.getName() + " поднял " + thing.toString());
+    System.out.println("Персонаж " + this.getName() + " поднял " + thing.toString());
     this.place.removeThing(thing);
+  }
+  
+  public void liftupThing(Rope rope, Thing thing) {
+    System.out.println("Персонаж " + this.getName() + " поднимает предмет \"" + thing.toString() + "\" с помощью приспособления \"" + rope.toString() + "\"");
+    
   }
   
   public void leavePlace() {

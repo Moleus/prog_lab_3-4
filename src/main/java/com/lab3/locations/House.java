@@ -31,6 +31,8 @@ public class House extends AbstractInhabitedPlace {
 	public void setOwner(Character owner) { this.owner = owner; }
 	public Character getOwner() { return this.owner; }
 	public String getName() { return this.name; }
+	public Cleanliness getCornerCleanliness(int index) { return this.corners.get(index).getCleanliness(); }
+	public ArrayList<Thing> getThingsInCorner(int index) { return this.corners.get(index).getThings(); }
 	
   @Override
   public String toString() {

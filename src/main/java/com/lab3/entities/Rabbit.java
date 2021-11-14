@@ -8,7 +8,7 @@ public class Rabbit extends Character {
   }
 
   public void doAction(String action) {
-    System.out.println("Персонаж " + name + " " +  action);
+    System.out.println("Персонаж " + name + " в припрыжку " +  action);
   }
 }
 

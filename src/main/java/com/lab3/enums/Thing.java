@@ -19,7 +19,7 @@ public enum Thing implements AbleGetDirty {
     @Override
     public Thing looksLike() { 
       Thing towel = Thing.Towel;
-      towel.setCleanliness(Cleanliness.DIRTY);
+      towel.setCleanliness(Cleanliness.DIRTY_NEUTRAL);
       return towel;
     }
   },
@@ -28,10 +28,10 @@ public enum Thing implements AbleGetDirty {
 	Doormat("дырявый половик"),
   ;
 
-	private String name;
+	private String str;
   private Cleanliness cleanliness;
 
-	Thing(String name) { this.name = name; }
+	Thing(String str) { this.str = str; }
 
   public Thing looksLike() { return this; }
 
@@ -47,7 +47,7 @@ public enum Thing implements AbleGetDirty {
 
 	@Override
 	public String toString() {
-			return getCleanliness() + name;
+			return getCleanliness() + this.str;
 	}
 
 }
