@@ -1,26 +1,58 @@
 package com.lab3.locations;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 import com.lab3.interfaces.AbleToContainCharacters;
+import com.lab3.enums.AgeTypes;
+import com.lab3.enums.Cleanliness;
+import com.lab3.enums.Thing;
 
 
-public class House extends AbstractInhabitedPlace implements AbleToContainCharacters {
-	- houseStands : boolean 
-	- houseCleanliness : HouseCleanliness
-	- HouseTypes : HouseTypes
+public class House extends AbstractInhabitedPlace {
+	private Cleanliness houseCleanliness;
+	private AgeTypes houseAgeType;
+	private Character owner;
 	
-	- corners : ArrayList<CornerInHouse>
-	- things : ArrayList<Thing>
+	private ArrayList<CornerInHouse> corners;
+	private ArrayList<Thing> things;
+	private String name;
 	
-	+ House(HouseTypes, houseCleanliness)
+	public House(String name, AgeTypes houseAgeType, Cleanliness houseCleanliness, ArrayList<CornerInHouse> corners) {
+		super(name);
+		this.name = name;
+		this.houseAgeType = houseAgeType;
+		this.houseCleanliness = houseCleanliness;
+		this.corners = corners;
+	}
 
-	+ getType()
-	+ getCleanness()
-	+ setOwner(Character)
-	+ getOwner() : Character 
-	+ settleIn(Character) : void
-	+ settleOut(Character) : void
-												
-	+ fellDown() 
-	+ isHouseStands() 
+  public AgeTypes getAgeType() { return this.houseAgeType; }
+	public Cleanliness getCleanness() { return this.houseCleanliness; }
+	public void setOwner(Character owner) { this.owner = owner; }
+	public Character getOwner() { return this.owner; }
+	public String getName() { return this.name; }
+	
+  @Override
+  public String toString() {
+      return  houseAgeType + " " + 
+							houseCleanliness + " " +
+							name;
+  }
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null) {
+			return false;
+		}
+		if (!(o instanceof House))
+			return false;
+		House house = (House) o;
+		return Objects.equals(this.name, house.getName()) 
+		&& Objects.equals(this.getOwner(), house.getOwner())
+		&& Objects.equals(this.getAgeType(), house.getAgeType())
+		&& Objects.equals(this.getCleanness(), house.getCleanness());
+	}
 
 }

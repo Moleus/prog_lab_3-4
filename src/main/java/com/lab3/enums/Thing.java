@@ -1,10 +1,14 @@
 package com.lab3.enums;
 
+import java.util.Random;
+
 import com.lab3.interfaces.AbleGetDirty;
 
 public enum Thing implements AbleGetDirty {
-	Chair("стулья"),
-	Painting("картины"),
+	Chair("стул"),
+	Painting("картина"),
+	Table("стол"),
+	AbstractThing("очередная вещь"),
 	Sponge("губка") {
     @Override
     public Thing looksLike() { 
@@ -21,25 +25,29 @@ public enum Thing implements AbleGetDirty {
   },
   Towel("полотенце"),
 	Fungus("поганки"),
-	AbstractThing("очередная вещь") {
-	};
+	Doormat("дырявый половик"),
+  ;
 
 	private String name;
   private Cleanliness cleanliness;
 
 	Thing(String name) { this.name = name; }
-	public String getName() { return this.name; }
 
-  public Thing looksLike() {
-    return this;
-  }
+  public Thing looksLike() { return this; }
 
   public String getCleanliness() { 
-    return cleanliness.name();
+    if (this.cleanliness == null) return "";
+    return this.cleanliness.toString() + " ";
   }
 
   public void setCleanliness(Cleanliness newCleanliness) { 
     this.cleanliness = newCleanliness;
   }
+
+
+	@Override
+	public String toString() {
+			return getCleanliness() + name;
+	}
 
 }

@@ -14,7 +14,7 @@ public abstract class Character implements AbleToHear {
 	
 	public String getName() { return this.name; }
 
-	public void doSomething(String toDo) {...}
+	public void doAction(String toDo) {...}
 	public void obtain(Thing Rope) {...}
 
 	public void pullOut(Building house, Thing ... things) {
@@ -193,7 +193,7 @@ public class main() {
 				+ "! Там " + Thing.Fungus.getName());
 
 		owl.explain(Thing.Sponge.getName() + " - её и что, если ");
-		if (!Kenga.distinguish(Thing.Sponge, Thing.Fungus)) {
+		if (!kenga.distinguish(Thing.Sponge, Thing.Fungus)) {
 			System.out.println(", то в хорошие времена мы живем!");
 		}
 	}

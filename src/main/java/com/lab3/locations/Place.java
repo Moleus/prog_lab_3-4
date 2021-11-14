@@ -5,8 +5,14 @@ import java.util.ArrayList;
 import com.lab3.enums.Thing;
 import com.lab3.interfaces.AbleToContainThings;
 
-abstract class Place implements AbleToContainThings {
+public abstract class Place implements AbleToContainThings {
 	private ArrayList<Thing> things;
+	protected String name;
+
+	protected Place(String name) { 
+		this.name = name; 
+		things = new ArrayList<Thing>();
+	}
 
 	public boolean containsThing(Thing thing) {
 		for(Thing e : things){
@@ -21,6 +27,12 @@ abstract class Place implements AbleToContainThings {
 		things.add(thing);
 	}
 
+	public void addThings(Thing ... thingsToAdd) {
+		for (Thing t: thingsToAdd){
+			things.add(t);
+		}
+	}
+
 	public ArrayList<Thing> getThings() {
 		return things;
 	}
@@ -33,5 +45,9 @@ abstract class Place implements AbleToContainThings {
 			}
 		}
 	}
-  
+	
+	@Override
+  public String toString() {
+      return name;
+	}  
 }
