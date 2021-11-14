@@ -43,7 +43,6 @@ public class Story {
 
     NearHouse nearHouse = new NearHouse("Возле бывшего дома Совы");
 
-		Thing abstractThing = Thing.AbstractThing;
 
 		Human christopherRobin = new Human("Кристофер Робин");
 		IaIa iaIa = new IaIa("Иа-иа");
@@ -117,33 +116,40 @@ public class Story {
 
     System.out.println();
     
-    // Крошка Ру поминутно то исчезал в доме, то появлялся оттуда верхом на очередном предмете, который поднимали канатом, что несколько нервировало Кенгу, потому что она не могла за ним как следует присматривать.
+    // Крошка Ру поминутно то исчезал в доме, то появлялся оттуда верхом на очередном предмете, 
+    // который поднимали канатом, что несколько нервировало Кенгу, 
+    // потому что она не могла за ним как следует присматривать.
     tinyRu.hideInHouse(oldOwlsHouse);
 
     if (!tinyRu.getPlace().equals(kenga.getPlace())) {
-      kenga.getNervous("Не может уследить за Крошкой Ру");
+      kenga.getNervous("не может уследить за Крошкой Ру");
     }
 
-		// tinyRu.appear("верхом на " + abstractThing.getName());
-		// abstractThing.liftedWithRope();
-    // tinyRu.appear(nearHouse, )from(randomThing)
-    // ToolRope.moveUp(randomThing)
-    
-    
-     // Она даже накричала на Сову, заявив, что ее дом-- это просто позор, там такая грязища, удивительно, что он не опрокинулся раньше! 
-    // Kenga:say(
-    
-    
+		Thing yetAnoterThing = someOne.getRandomFurniture();
 
-		// Tiny Ru 
-		// kenga.shoutAt(owl, oldOwlsHouse.getName() + 
-		// 		" - это просто позор, там такая грязища, удивительно, что он не опрокинулся раньше." +
-		// 		" Вы только посмотрите, как " + CornerOfHouse.getCornerState() 
-		// 		+ "! Там " + Thing.Sponge.looksLike().toString());
+    someOne = nearHouse.getRandomCharacter();
+    someOne.liftupThing(rope, yetAnoterThing);
+    tinyRu.appear(nearHouse, "верхом на предмете \"" + yetAnoterThing.toString() + "\"");
+    
+    System.out.println();
+    
+    // Она даже накричала на Сову, заявив, что ее дом - это просто позор, там такая грязища, удивительно, что он не опрокинулся раньше! 
+    if (kenga.isNervous()) {
+      kenga.sayToOne( owl, oldOwlsHouse + " это просто позор. Он такой " + 
+                      oldOwlsHouse.getCleanness() + ", удивительно, что не опрокинулся раньше!\n"); 
 
-		// owl.explain(Thing.Sponge.getName() + " - её и что, если ");
-		// if (!Kenga.distinguish(Thing.Sponge, Thing.Fungus)) {
-		// 	System.out.println(", то в хорошие времена мы живем!");
-		// }
+      String cornerState = oldOwlsHouse.getCornerCleanliness(0).toString();
+      String thingInCornerLooksLike = oldOwlsHouse.getThingsInCorner(0).get(0).looksLike().toString();
+      System.out.println("Персонаж " + kenga.getName() + " видит " + cornerState + " угол");
+ 
+      kenga.sayToOne(owl, "Вы только посмотрите, какой он " + cornerState +
+                      "! Там " + thingInCornerLooksLike);
+    }
+
+		owl.sayToOne(kenga, "Это моя " + Thing.Sponge.toString());
+    System.out.print("\tЕсли ");
+		if (!kenga.distinguish(Thing.Sponge, Thing.Fungus)) {
+			System.out.println(", то в хорошие времена мы живем!");
+		}
   }
 }

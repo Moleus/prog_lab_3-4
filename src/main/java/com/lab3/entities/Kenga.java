@@ -4,6 +4,7 @@ import com.lab3.enums.Thing;
 import com.lab3.locations.AbstractInhabitedPlace;
 
 public class Kenga extends Character {
+	private boolean nervousFlag = false;
   public Kenga(String name) { 
     super(name);
   }
@@ -16,16 +17,20 @@ public class Kenga extends Character {
 	}
 
 	public void getNervous(String reason) {
+		nervousFlag = true;
 		System.out.println(this.getName() + " нервничала, потому что " + reason);
 	}
+	
+	public boolean isNervous() {return this.nervousFlag; }
+
 	public void shoutAt(Character character, String message) {
 		System.out.println(this.getName() + " покрикивала на" + character.getName() + ": "
 				+ message);
 	}
 
 	public boolean distinguish(Thing thing1, Thing thing2) {
-		if (thing1.toString() == "губка" && thing2.toString() == "поганка") {
-			System.out.print(this.getName() + " не может отличить " + thing1.toString() + " от " + thing2.toString());
+		if ("губка".equals(thing1.toString()) &&  "поганки".equals(thing2.toString())) {
+			System.out.print(this.getName() + " не может отличить предмет " + thing1.toString() + " от " + thing2.toString());
 			return false;
 		}
 		return true;

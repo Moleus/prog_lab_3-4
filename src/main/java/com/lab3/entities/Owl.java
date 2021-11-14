@@ -8,7 +8,7 @@ public class Owl extends Character{
   }
   
   public void doAction(String action) {
-    System.out.println("Персонаж " + name + " " +  action);
+    System.out.println("Персонаж " + name + " со старческой нерасторопностью " +  action);
   }
 
 	void responseWithIndignation(String respone) {

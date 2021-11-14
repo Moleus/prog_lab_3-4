@@ -15,4 +15,8 @@ public class Rope extends AbstractThing {
      System.out.println(thing.toString() + " вытаскивают, используя " + this.getName());
   }
   
+  @Override
+  public String toString() {
+    return this.getName();
+  }
 }
