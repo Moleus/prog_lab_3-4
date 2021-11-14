@@ -23,7 +23,7 @@ public class Story {
   public static House prepareHouse() { 
     ArrayList<CornerInHouse> corners = create4Corners();
     corners.get(0).addThing(Thing.Sponge);
-		House oldOwlsHouse = new House("Дом Совы", AgeTypes.OLD, Cleanliness.OVERGROWN, corners);
+		House oldOwlsHouse = new House("Дом Совы", AgeTypes.OLD, Cleanliness.getRandomState(), corners);
 
     oldOwlsHouse.addThings(Thing.Chair, Thing.Painting, Thing.Shawl, Thing.Sponge);
 
@@ -82,7 +82,7 @@ public class Story {
     String task = "разбирать вещи из дома";
 
     // Кристофер Робин всем объяснял, что делать, 
-    christopherRobin.sayToAll("Всем нужно " + task);
+    christopherRobin.sayToAll("Всем нужно " + task + ", чтобы всё было готово к переезду в " + newOwlsHouse.toString());
 
     // и Кролик объяснял всем то же самое, на тот случай, если они не расслышали,
     rabbit.sayToAll("Всем нужно " + task);
@@ -109,10 +109,10 @@ public class Story {
     Thing owlsShawl = Thing.Shawl;
     kenga.tieKnots();
     kenga.sayToOne(owl, owl.getName() + ", тебе не нужно " + 
-              owlsShawl.looksLike().toString() + "? И" + Thing.Doormat.toString() + " не годится.");
+              owlsShawl.looksLike().toString() + "? И " + Thing.Doormat.toString() + " не годится.");
     owl.sayToOne(kenga, "Конечно, " + Thing.Doormat.toString() + 
             " годится - надо только правильно расставить мебель!\n" + 
-            "\tА это совсем не " + owlsShawl.looksLike().toString() + ", а моя" + owlsShawl.toString());
+            "\tА это совсем не " + owlsShawl.looksLike().toString() + ", а моя " + owlsShawl.toString());
 
     System.out.println();
     

@@ -3,20 +3,21 @@ package com.lab3.locations;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import com.lab3.interfaces.AbleToAge;
 import com.lab3.interfaces.AbleToContainCharacters;
 import com.lab3.enums.AgeTypes;
 import com.lab3.enums.Cleanliness;
 import com.lab3.enums.Thing;
 
 
-public class House extends AbstractInhabitedPlace {
-	private Cleanliness houseCleanliness;
+public class House extends AbstractInhabitedPlace implements AbleToAge {
+
+	private String name;
 	private AgeTypes houseAgeType;
+	private Cleanliness houseCleanliness;
 	private Character owner;
-	
 	private ArrayList<CornerInHouse> corners;
 	private ArrayList<Thing> things;
-	private String name;
 	
 	public House(String name, AgeTypes houseAgeType, Cleanliness houseCleanliness, ArrayList<CornerInHouse> corners) {
 		super(name);
@@ -26,6 +27,7 @@ public class House extends AbstractInhabitedPlace {
 		this.corners = corners;
 	}
 
+  public void setAgeType(AgeTypes ageType) { this.houseAgeType = ageType; }
   public AgeTypes getAgeType() { return this.houseAgeType; }
 	public Cleanliness getCleanness() { return this.houseCleanliness; }
 	public void setOwner(Character owner) { this.owner = owner; }

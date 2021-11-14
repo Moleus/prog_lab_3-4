@@ -2,7 +2,7 @@ package com.lab3.entities;
 
 import com.lab3.locations.AbstractInhabitedPlace;
 
-public class Owl extends Character{
+public class Owl extends Animal{
   public Owl(String name) { 
     super(name);
   }

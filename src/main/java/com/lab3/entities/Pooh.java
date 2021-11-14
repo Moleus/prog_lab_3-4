@@ -2,7 +2,7 @@ package com.lab3.entities;
 
 import com.lab3.locations.AbstractInhabitedPlace;
 
-public class Pooh extends Character {
+public class Pooh extends Animal {
   public Pooh(String name) { 
     super(name);
   }

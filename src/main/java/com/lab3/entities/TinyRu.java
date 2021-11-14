@@ -3,7 +3,7 @@ package com.lab3.entities;
 import com.lab3.locations.AbstractInhabitedPlace;
 import com.lab3.locations.House;
 
-public class TinyRu extends Character {
+public class TinyRu extends Animal {
   public TinyRu(String name) { 
     super(name);
   }

@@ -35,19 +35,22 @@ public enum Thing implements AbleGetDirty {
 
   public Thing looksLike() { return this; }
 
-  public String getCleanliness() { 
+  public String getCleanString() { 
     if (this.cleanliness == null) return "";
     return this.cleanliness.toString() + " ";
+  }
+
+  public Cleanliness getCleanliness() { 
+    return this.cleanliness ;
   }
 
   public void setCleanliness(Cleanliness newCleanliness) { 
     this.cleanliness = newCleanliness;
   }
 
-
 	@Override
 	public String toString() {
-			return getCleanliness() + this.str;
+			return getCleanString() + this.str;
 	}
 
 }
