@@ -11,7 +11,7 @@ abstract class Character {
 	- name : String
 	+ getName() 
 
-	+ doSomething(String sm) 
+	+ doAction(String sm) 
 	+ obtain(Thing) 
 	+ pullOut(Thing ..., Place) 
 	+ say(String, Character)
@@ -136,7 +136,7 @@ abstract class AbstractPlace {
 }
 
 interface AbleToHear { 
-	+ hasHeard(String) : void
+	+ tryToHear(String) : void
 }
 
 interface AbleToInteractWithThings {

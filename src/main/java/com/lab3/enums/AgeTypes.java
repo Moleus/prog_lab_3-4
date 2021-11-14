@@ -7,8 +7,11 @@ public enum AgeTypes {
 	OLD("старый"),
 	NEW("новый");
   
-  private String ageType;
-  AgeTypes(String ageType) { this.ageType = ageType; }
-  
-  public String getAgeType() { return ageType; }
+  private String type;
+  AgeTypes(String type) { this.type = type; }
+
+	@Override
+	public String toString() {
+			return type;
+	}
 }
