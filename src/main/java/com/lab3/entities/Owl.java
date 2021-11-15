@@ -3,9 +3,7 @@ package com.lab3.entities;
 import com.lab3.locations.AbstractInhabitedPlace;
 
 public class Owl extends Animal{
-  public Owl(String name) { 
-    super(name);
-  }
+  public Owl(String name) { super(name); }
   
   public void doAction(String action) {
     System.out.println("Персонаж " + name + " со старческой нерасторопностью " +  action);

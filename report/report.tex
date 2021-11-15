@@ -10,7 +10,7 @@
 \usepackage[hidelinks]{hyperref} 
 
 % Poles settings:
-\usepackage[left=30mm, top=10mm, right=20mm, bottom=10mm, head=5mm, foot=9mm]{geometry}
+\usepackage[left=15mm, top=10mm, right=15mm, bottom=10mm, head=5mm, foot=9mm]{geometry}
 
 \usepackage{fontspec}
 \setmainfont{FreeSerif}
@@ -23,7 +23,7 @@
 \newfontfamily\cyrillicfont{FreeSerif}[Script=Cyrillic]
 
 % Source code blocks
-\usepackage[skins,minted]{tcolorbox}
+\usepackage[skins,minted, breakable]{tcolorbox}
 \definecolor{mintedbackground}{rgb}{1,1,1}
 \definecolor{mintedframe}{rgb}{0.70,0.85,0.95}
 
@@ -40,16 +40,13 @@
 \makeatother
 
 % Minted conifg
-\setminted[java]{
-    bgcolor=mintedbackground,
-    fontfamily=tt,
+\setminted[]{
+    % fontfamily=tt,
     linenos=true,
     numberblanklines=true,
-    numbersep=12pt,
     numbersep=5pt,
     gobble=0,
-    frame=leftline,
-    framesep=2mm,
+    framesep=0mm,
     funcnamehighlighting=true,
     tabsize=2,
     obeytabs=false,
@@ -58,19 +55,49 @@
     showspaces=false,
     showtabs=false,
     texcl=false,
-    baselinestretch=1.2,
-    fontsize=\footnotesize,
+    % baselinestretch=1.2,
     breaklines=true,
 }
 
 % One line code listing with filename extracted
-\newtcbinputlisting[]{\javacode}[2][]{enhanced, listing engine=minted, 
-listing only,#1,listing file={#2}, title=\filename{#2}, minted language=java, 
-coltitle=mintedbackground!10!black, 
-fonttitle=\ttfamily\small,
-sharp corners, top=0mm, bottom=0mm,
-title code={\path[draw=mintedframe,dashed](title.south west)--(title.south east);},
-frame code={\path[draw=mintedframe](frame.south west) rectangle (frame.north east);}
+\newtcbinputlisting[]{\javacode}[2][]{
+    breakable,
+    enhanced, listing engine=minted, 
+    listing file={#2}, 
+    title=\filename{#2}, 
+    minted language=java, 
+    minted options={
+        fontsize=\tiny,
+    },
+    % minted style=default,
+    overlay={%
+    \begin{tcbclipinterior}
+        \fill[gray!25] (frame.south west) rectangle ([xshift=5mm]frame.north west);
+    \end{tcbclipinterior}
+    },
+    listing only,#1,
+    % title code={\path[dashed](title.south west)--(title.south east);},
+    % frame code={\path[](frame.south west) rectangle (frame.north east);}
+}
+% txt files
+\newtcbinputlisting[]{\sampletext}[2][]{
+    breakable,
+    enhanced, listing engine=minted, 
+    listing file={#2}, 
+    minted language=text, 
+    minted options={
+        fontsize=\tiny
+    },
+    minted style=default,
+    colback=gray!5,colframe=blue!40,
+    overlay={%
+    \begin{tcbclipinterior}
+        \fill[gray!25] (frame.south west) rectangle ([xshift=5mm]frame.north west);
+    \end{tcbclipinterior}
+    },
+    listing only,#1,
+    % title code={\path[dashed](title.south west)--(title.south east);},
+    % frame code={\path[](frame.south west) rectangle (frame.north east);}
 }
 
 \begin{document}
@@ -89,15 +116,14 @@ frame code={\path[draw=mintedframe](frame.south west) rectangle (frame.north eas
 \pagebreak
 
 \section{Диаграмма классов объектной модели}
-% \intput{class_diagram.tex}
+\input{class_diagram.tex}
+\pagebreak
 
-% \section{Исходный код программы}
-% \input{source_code.tex}
+\section{Исходный код программы}
+\input{source_code.tex}
 
 \section{Результат работы программы}
-% \begin{center}
-%   \inputminted[linenos=true, fontsize=\scriptsize]{text}{sample_output.txt}
-% \end{center}
+\sampletext[]{sample_output.txt}
 
 \section{Выводы по работе}
 \input{conclusions}
