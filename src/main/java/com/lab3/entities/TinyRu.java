@@ -4,9 +4,7 @@ import com.lab3.locations.AbstractInhabitedPlace;
 import com.lab3.locations.House;
 
 public class TinyRu extends Animal {
-  public TinyRu(String name) { 
-    super(name);
-  }
+  public TinyRu(String name) { super(name); }
 
   public void doAction(String action) {
     System.out.println("Персонаж " + name + " " +  action);

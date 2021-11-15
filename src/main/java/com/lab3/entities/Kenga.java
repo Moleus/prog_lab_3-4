@@ -5,9 +5,7 @@ import com.lab3.locations.AbstractInhabitedPlace;
 
 public class Kenga extends Animal {
 	private boolean nervousFlag = false;
-  public Kenga(String name) { 
-    super(name);
-  }
+  public Kenga(String name) { super(name); }
 
   public void doAction(String action) {
     System.out.println("Персонаж " + name + " " +  action);

@@ -15,10 +15,11 @@ report/tex_out/
 !report/*.tex
 
 
-# !src/
-# !src/**/*.java
+!src/
+src/**/*.sh
+!src/**/*.java
 !report/*.tex
 !report/imgs/*.png
 !report/imgs/*.jpg
 
-private*
+**/private*
