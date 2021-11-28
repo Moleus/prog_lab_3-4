@@ -1,99 +1,77 @@
 package com.lab3.entities;
 
 import com.lab3.interfaces.Moveable;
-import com.lab3.locations.AbstractInhabitedPlace;
+import com.lab3.locations.InhabitedPlace;
 import com.lab3.locations.House;
 import com.lab3.locations.Place;
+import com.lab3.strategies.InteractionStrategy;
 import com.lab3.things.Rope;
 
 import java.util.Objects;
 import java.util.Random;
 
 import com.lab3.enums.Thing;
-import com.lab3.interfaces.AbleToHear;
+import com.lab3.exceptions.NullPlaceException;
 import com.lab3.interfaces.AbleToInteractWithThings;
 
-public abstract class Character implements Moveable, AbleToHear, AbleToInteractWithThings {
-  protected AbstractInhabitedPlace place;
+public class Character extends BaseCharacter implements AbleToInteractWithThings{
+  protected InhabitedPlace place;
   protected final String name;
   private boolean heardFlag = false;
+  private InteractionStrategy strategy;
 
-  Character(String name) { 
+  Character(String name, InteractionStrategy strategy) { 
     this.name = name;
+    this.strategy = strategy;
   }
-
-  public abstract void doAction(String name) ;
   
   public String getName() { return this.name; }
-  public Place getPlace() { return this.place; }
+  public InhabitedPlace getPlace() { return this.place; }
 
-  public void setPlace(AbstractInhabitedPlace place) { this.place = place; }
-  
-  public boolean hasHeard() { return this.heardFlag; }
+  public void setPlace(InhabitedPlace place) { this.place = place; }
 
-
-	public void pullOut(House house, Place newPlace, Thing ... things) {
-		System.out.println("Персонаж " + this.getName() + " вытаскивал предмет " + "\"" + things[0] + "\" " );
-		for (Thing thing : things) {
-      this.moveThingToPlace(thing, newPlace);
-		}
-		System.out.println(" из локации " + "\"" + house.toString() +  "\"" + " наружу");
+	public void pullOut(House house, Place newPlace, Thing thing) {
+    // TODO: check if place is equal to character's location
+    this.moveThingToPlace(thing, house, newPlace);
   }
   
   public void sayToAll(String message) {
-    System.out.println("Персонаж " + name + " сказал: " + "\"" + message + "\"");
-    String charactersHeard = "";
-    for (Character c : this.place.getCharacters()) {
-      if(c.tryToHear(message)) {
-        charactersHeard += c.getName() + ", ";
-      }
+    if (this.place == null) {
+      throw new NullPlaceException();
     }
-    System.out.println("Персонажи " + charactersHeard + " услышали: " + message);   
+    String heardCharacters = strategy.sayToAll(this.place, message);
+    System.out.println("Персонажи " + heardCharacters + " услышали: " + message);   
   }
 
-  public void sayToOne(Character character, String message) {
-    System.out.println("Персонаж " + name + " сказал персонажу " + character.getName() + ": " + "\"" + message + "\"");
-  }
-  
-  public boolean tryToHear(String message) {
-    if (getRandomBoolean()) {
-      heardFlag = true;
-    }
+  public boolean hasHeard() {
     return heardFlag;
   }
-
-  protected boolean getRandomBoolean(){
-    return Math.random() < 0.5;
-  }
   
+  public void setHeard(boolean flag) {
+    this.heardFlag = flag;
+  }
+
+  public void sayToOne(Character character, String message) { }
+
 	public Thing getRandomFurniture() {
 		return Thing.values()[new Random().nextInt(4)];
 	}
   
-	public void moveThingToPlace(Thing thing, Place newPlace) {
-    System.out.print("Персонаж " + this.getName() + " взял предмет " + thing.toString() + " и понес на место " + "\"" + newPlace.toString() + "\"");
-    this.place.removeThing(thing);
-    newPlace.addThing(thing);
+	public void moveThingToPlace(Thing thing, Place oldPlace, Place newPlace) {
+    this.strategy.moveThingToPlace(thing, oldPlace, newPlace); 
   }
 
-	public void pickUpThing(Thing thing) {
-    System.out.println("Персонаж " + this.getName() + " поднял " + thing.toString());
-    this.place.removeThing(thing);
+	public void pickUpThing(Thing thing, Place fromPlace) {
+    this.strategy.pickUpThing(thing, fromPlace); 
   }
   
   public void liftupThing(Rope rope, Thing thing) {
     System.out.println("Персонаж " + this.getName() + " поднимает предмет \"" + thing.toString() + "\" с помощью приспособления \"" + rope.toString() + "\"");
-    
   }
-  
-  public void leavePlace() {
-    place = null;
-  }
-  
-  public void moveToPlace(AbstractInhabitedPlace newPlace) { 
-    this.leavePlace();
-    newPlace.addCharacter(this);
-    this.setPlace(newPlace);
+
+  @Override
+  public void doAction(String action) {
+    System.out.println("Персонаж " + name + " " +  action);
   }
 
 	@Override
@@ -116,9 +94,6 @@ public abstract class Character implements Moveable, AbleToHear, AbleToInteractW
 
   @Override
   public String toString() {
-      return "Character{" +
-              "name='" + name + '\'' +
-              ", location=" + place +
-              '}';
+      return this.name;
   }
 }

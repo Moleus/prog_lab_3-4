@@ -4,6 +4,6 @@ import com.lab3.enums.Thing;
 import com.lab3.locations.Place;
 
 public interface AbleToInteractWithThings {
-	public void moveThingToPlace(Thing thing, Place place);
-	public void pickUpThing(Thing thing);
+	public void moveThingToPlace(Thing thing, Place oldPlace, Place newPlace);
+	public void pickUpThing(Thing thing, Place fromPlace);
 }

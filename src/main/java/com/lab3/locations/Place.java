@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.lab3.enums.Thing;
 import com.lab3.interfaces.AbleToContainThings;
 
-public abstract class Place implements AbleToContainThings {
+public class Place implements AbleToContainThings {
 	private ArrayList<Thing> things;
 	protected String name;
 

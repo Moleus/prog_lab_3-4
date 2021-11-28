@@ -6,7 +6,7 @@ import com.lab3.entities.Character;
 
 public interface AbleToContainCharacters { 
 	public boolean containsCharacter(Character character); 
-	public void addCharacter(Character character); 
+	public void addCharacters(Character ... character); 
 	public ArrayList<Character> getCharacters(); 
 	public void removeCharacter(Character character); 
 }

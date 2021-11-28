@@ -1,12 +1,19 @@
 package com.lab3.entities;
 
-import com.lab3.locations.AbstractInhabitedPlace;
+import com.lab3.enums.Thing;
+import com.lab3.locations.House;
+import com.lab3.locations.InhabitedPlace;
+import com.lab3.locations.Place;
+import com.lab3.strategies.InteractionStrategy;
 
-public class Owl extends Animal{
-  public Owl(String name) { super(name); }
+public class Owl extends Character{
+  // private static final Action PULLOUT = null;
+	private String actionCharacteristic = "со старческой нерасторопностью";
+
+	public Owl(String name, InteractionStrategy strategy) { super(name, strategy); }
   
   public void doAction(String action) {
-    System.out.println("Персонаж " + name + " со старческой нерасторопностью " +  action);
+    System.out.printf("%s %s %s", name, actionCharacteristic, action);
   }
 
 	void responseWithIndignation(String respone) {
@@ -24,4 +31,23 @@ public class Owl extends Animal{
 	void explain(String message) {
 		System.out.print(this.getName() + "объяснила, что " + message);
 	}
+
+  @Override
+public void sayToAll( String message) {
+    System.out.printf("%s сказала всем: \"%s\"\n", name, message);
+    super.sayToAll(message);
+  }
+  
+  @Override
+  public void sayToOne(Character character, String message) {
+    System.out.printf("%s сказала персонажу %s: \"%s\"\n", name, character, message);
+    super.sayToOne(character, message);
+  }
+  
+  @Override
+  public void pullOut(House house, Place newPlace, Thing thing) {
+    System.out.printf("%s %s вытаскивает предмет \"%s\" из Дома.\n", name, actionCharacteristic, house);
+    super.pullOut(house, newPlace, thing);
+  }
+
 }

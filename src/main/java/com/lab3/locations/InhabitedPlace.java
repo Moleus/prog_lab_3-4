@@ -7,9 +7,9 @@ import com.lab3.interfaces.AbleToContainCharacters;
 
 import com.lab3.entities.Character;
 
-public abstract class AbstractInhabitedPlace extends Place implements AbleToContainCharacters {
+public class InhabitedPlace extends Place implements AbleToContainCharacters {
 	protected ArrayList<Character> characters;
-	protected AbstractInhabitedPlace(String name) { 
+	protected InhabitedPlace(String name) { 
 		super(name);
 		characters = new ArrayList<Character>();
 	}
@@ -38,8 +38,21 @@ public abstract class AbstractInhabitedPlace extends Place implements AbleToCont
 		return false;
 	}
 
-	public void addCharacter(Character character) {
-		characters.add(character);
+	public void addCharacters(Character ... new_characters) {
+		for (Character e : new_characters) {
+			characters.add(e);
+			e.setPlace(this);
+		}
+	}
+	
+	public void acceptCharater(Character character, String message) {
+		System.out.printf("%s %s\n", character, message);
+		if (character.getPlace() == null) {
+			return;
+		}
+		InhabitedPlace prev_place = character.getPlace();
+		prev_place.removeCharacter(character);
+		this.addCharacters(character);
 	}
 
 	public ArrayList<Character> getCharacters() {
@@ -58,11 +71,4 @@ public abstract class AbstractInhabitedPlace extends Place implements AbleToCont
 	public Character getRandomCharacter() { 
 		return characters.get(new Random().nextInt(characters.size()));
 	}
-	
-	public void echoPhraseInPlace(String message) { 
-		for (Character c : characters) {
-			c.tryToHear(message);
-		}
-	}
-
 }

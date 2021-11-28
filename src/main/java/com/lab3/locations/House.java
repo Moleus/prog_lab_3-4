@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import com.lab3.interfaces.AbleToAge;
-import com.lab3.interfaces.AbleToContainCharacters;
 import com.lab3.enums.AgeTypes;
 import com.lab3.enums.Cleanliness;
 import com.lab3.enums.Thing;
 
 
-public class House extends AbstractInhabitedPlace implements AbleToAge {
+public class House extends InhabitedPlace implements AbleToAge {
 
 	private String name;
 	private AgeTypes houseAgeType;

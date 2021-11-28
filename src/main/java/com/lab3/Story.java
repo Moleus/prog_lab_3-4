@@ -7,6 +7,8 @@ import com.lab3.entities.Character;
 import com.lab3.locations.CornerInHouse;
 import com.lab3.locations.House;
 import com.lab3.locations.NearHouse;
+import com.lab3.strategies.InteractWithOthers;
+import com.lab3.strategies.InteractionStrategy;
 import com.lab3.things.Rope;
 import com.lab3.enums.*;
 
@@ -35,7 +37,7 @@ public class Story {
       allArrayList.add(e);
     }
   }
-  public static void main(String[] args) {
+  public static void main(String ... args) {
     ArrayList<Character> allCharacters = new ArrayList<Character>();
     
 		House oldOwlsHouse = prepareHouse();
@@ -43,32 +45,27 @@ public class Story {
 
     NearHouse nearHouse = new NearHouse("Возле бывшего дома Совы");
 
+    InteractionStrategy strategy = new InteractWithOthers();
 
-		Human christopherRobin = new Human("Кристофер Робин");
-		IaIa iaIa = new IaIa("Иа-иа");
-		Kenga kenga = new Kenga("Кенга");
-		Owl owl = new Owl("Сова");
-		Pooh pooh = new Pooh("Винни-Пух");
-		Rabbit rabbit = new Rabbit("Кролик");
-		TinyRu tinyRu = new TinyRu("Крошка Ру");
-		Piglet piglet = new Piglet("Пяточок");
+		Human christopherRobin = new Human("Кристофер Робин", strategy);
+		IaIa iaIa = new IaIa("Иа-иа", strategy);
+		Kenga kenga = new Kenga("Кенга", strategy);
+		Owl owl = new Owl("Сова", strategy);
+		Pooh pooh = new Pooh("Винни-Пух", strategy);
+		Rabbit rabbit = new Rabbit("Кролик", strategy);
+		TinyRu tinyRu = new TinyRu("Крошка Ру", strategy);
+		Piglet piglet = new Piglet("Пяточок", strategy);
     
     fillAllCharacters(allCharacters, christopherRobin, iaIa, kenga, owl, pooh, rabbit, tinyRu, piglet);
 
-    christopherRobin.moveToPlace(nearHouse);
-    kenga.moveToPlace(nearHouse);
-    owl.moveToPlace(nearHouse);
-    rabbit.moveToPlace(nearHouse);
-    tinyRu.moveToPlace(nearHouse);
+    nearHouse.addCharacters(christopherRobin, kenga, owl, pooh, rabbit, tinyRu, piglet);
 
     // описать, кто собрался на поляне
     nearHouse.describe();
     
     // Винни и Пяточoк подошли к бывшему дому Совы
-    pooh.doAction("подошёл к бывшему дому Совы");
-    pooh.moveToPlace(nearHouse);
-    piglet.doAction("подошёл к бывшему дому Совы");
-    piglet.moveToPlace(nearHouse);
+    nearHouse.acceptCharater(pooh, "подошёл к бывшему дому Совы");
+    nearHouse.acceptCharater(piglet, "подошёл к бывшему дому Совы");
     
     // на поляне были все, кроме
     System.out.print("На поляне были все, кроме персонажа с именем ");
@@ -86,7 +83,6 @@ public class Story {
 
     // и Кролик объяснял всем то же самое, на тот случай, если они не расслышали,
     rabbit.sayToAll("Всем нужно " + task);
-    
     System.out.println();
     
     // Они где-то раздобыли канат и вытаскивали стулья и картины, и всякие вещи из прежнего дома Совы, чтобы все было готово для переезда в новый дом. 
@@ -132,10 +128,10 @@ public class Story {
     
     System.out.println();
     
-    // Она даже накричала на Сову, заявив, что ее дом - это просто позор, там такая грязища, удивительно, что он не опрокинулся раньше! 
+    // Она даже накричала на Сову
     if (kenga.isNervous()) {
       kenga.sayToOne( owl, oldOwlsHouse + " это просто позор. Он такой " + 
-                      oldOwlsHouse.getCleanness() + ", удивительно, что не опрокинулся раньше!\n"); 
+                      oldOwlsHouse.getCleanness() + ", удивительно, что не опрокинулся раньше!"); 
 
       String cornerState = oldOwlsHouse.getCornerCleanliness(0).toString();
       String thingInCornerLooksLike = oldOwlsHouse.getThingsInCorner(0).get(0).looksLike().toString();

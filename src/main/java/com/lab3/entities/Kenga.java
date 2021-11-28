@@ -1,14 +1,17 @@
 package com.lab3.entities;
 
 import com.lab3.enums.Thing;
-import com.lab3.locations.AbstractInhabitedPlace;
+import com.lab3.locations.House;
+import com.lab3.locations.InhabitedPlace;
+import com.lab3.locations.Place;
+import com.lab3.strategies.InteractionStrategy;
 
-public class Kenga extends Animal {
+public class Kenga extends Character {
 	private boolean nervousFlag = false;
-  public Kenga(String name) { super(name); }
+  public Kenga(String name, InteractionStrategy strategy) { super(name, strategy); }
 
   public void doAction(String action) {
-    System.out.println("Персонаж " + name + " " +  action);
+    System.out.println(name + " " +  action);
   }
 	public void tieKnots() {
 		System.out.println(this.getName() + " связывает узлы");
@@ -33,4 +36,22 @@ public class Kenga extends Animal {
 		}
 		return true;
 	}
+
+  @Override
+	public void sayToAll( String message) {
+    System.out.printf("%s сказала всем: \"%s\"\n", name, message);
+    super.sayToAll(message);
+  }
+  
+  @Override
+  public void sayToOne(Character character, String message) {
+    System.out.printf("%s сказала персонажу %s: \"%s\"\n", this.name, character, message);
+    super.sayToOne(character, message);
+  }
+  
+  @Override
+  public void pullOut(House house, Place newPlace, Thing thing) {
+    System.out.printf("%s в припрыжку вытаскивает предмет \"%s\" из Дома.\n", name, house);
+    super.pullOut(house, newPlace, thing);
+  }
 }

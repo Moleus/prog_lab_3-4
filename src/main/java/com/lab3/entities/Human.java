@@ -1,10 +1,30 @@
 package com.lab3.entities;
 
+import com.lab3.enums.Thing;
+import com.lab3.locations.House;
+import com.lab3.locations.InhabitedPlace;
+import com.lab3.locations.Place;
+import com.lab3.strategies.InteractionStrategy;
+
 public class Human extends Character {
 
-  public Human(String name) { super(name); }
+  public Human(String name, InteractionStrategy strategy) { super(name, strategy); }
   
-  public void doAction(String action) {
-    System.out.println("Персонаж " + name + " " +  action);
+  @Override
+  public void sayToAll( String message) {
+    System.out.printf("%s сказал всем: \"%s\"\n", name, message);
+    super.sayToAll(message);
+  }
+  
+  @Override
+  public void sayToOne(Character character, String message) {
+    System.out.printf("%s сказал персонажу %s: \"%s\"\n", name, character, message);
+    super.sayToOne(character, message);
+  }
+  
+  @Override
+  public void pullOut(House house, Place newPlace, Thing thing) {
+    System.out.printf("%s вытаскивает предмет \"%s\" из Дома.\n", name, house);
+    super.pullOut(house, newPlace, thing);
   }
 }

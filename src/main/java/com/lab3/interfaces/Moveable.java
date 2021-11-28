@@ -1,8 +1,8 @@
 package com.lab3.interfaces;
 
-import com.lab3.locations.AbstractInhabitedPlace;
+import com.lab3.locations.InhabitedPlace;
 
 public interface Moveable { 
-	public void moveToPlace(AbstractInhabitedPlace place);
+	public void moveToPlace(InhabitedPlace place);
 	public void leavePlace();
 }

@@ -1,20 +1,44 @@
 package com.lab3.entities;
 
-import com.lab3.locations.AbstractInhabitedPlace;
+import com.lab3.locations.InhabitedPlace;
+import com.lab3.locations.Place;
+import com.lab3.strategies.InteractionStrategy;
+import com.lab3.enums.Thing;
 import com.lab3.locations.House;
 
-public class TinyRu extends Animal {
-  public TinyRu(String name) { super(name); }
+public class TinyRu extends Character {
+	private String actionCharacteristic = "в припрыжку";
 
-  public void doAction(String action) {
-    System.out.println("Персонаж " + name + " " +  action);
-  }
+  public TinyRu(String name, InteractionStrategy strategy) { super(name, strategy); }
+
 	public void hideInHouse(House house) {
-		System.out.println(this.getName() + " исчез в Доме");
-    this.moveToPlace(house);
+    house.acceptCharater(this, "исчез в Доме");
 	}
-	public void appear(AbstractInhabitedPlace place, String action) {
-		System.out.println(this.getName() + " появлялся " + action);
-    this.moveToPlace(place);
+
+	public void appear(InhabitedPlace place, String action) {
+    place.acceptCharater(this, "появился " + action);
 	}
+
+  @Override
+  public void doAction(String action) {
+    System.out.printf("%s %s %s", name, actionCharacteristic, action);
+  }
+
+  @Override
+public void sayToAll( String message) {
+    System.out.printf("%s сказал всем: \"%s\"\n", name, message);
+    super.sayToAll(message);
+  }
+  
+  @Override
+  public void sayToOne(Character character, String message) {
+    System.out.printf("%s сказал персонажу %s: \"%s\"\n", name, character, message);
+    super.sayToOne(character, message);
+  }
+  
+  @Override
+  public void pullOut(House house, Place newPlace, Thing thing) {
+    System.out.printf("%s %s вытаскивает предмет \"%s\" из Дома.\n", name, actionCharacteristic, house);
+    super.pullOut(house, newPlace, thing);
+  }
 }
