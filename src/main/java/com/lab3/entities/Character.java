@@ -1,6 +1,5 @@
 package com.lab3.entities;
 
-import com.lab3.interfaces.Moveable;
 import com.lab3.locations.InhabitedPlace;
 import com.lab3.locations.House;
 import com.lab3.locations.Place;
