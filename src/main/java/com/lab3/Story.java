@@ -128,7 +128,6 @@ public class Story {
     rabbit.sayToAll("Всем нужно " + task);
     System.out.println();
     
-    CharactersGroup heardCharactersGroup = new CharactersGroup(strategy, nearOwlHouse.getCharacters().toArray(new Character[0]));
     // Они где-то раздобыли канат и вытаскивали стулья и картины, и всякие вещи из прежнего дома Совы, чтобы все было готово для переезда в новый дом. 
     Character someOne = nearOwlHouse.getRandomCharacter();
     while (!someOne.hasHeard()) {
@@ -186,15 +185,13 @@ public class Story {
     
     // Она даже накричала на Сову
     if (kenga.isNervous()) {
-      kenga.sayToOne( owl, oldOwlsHouse + " это просто позор. Он такой " + 
-                      oldOwlsHouse.getCleanness() + ", удивительно, что не опрокинулся раньше!"); 
+      kenga.sayToOne( owl, oldOwlsHouse + " это просто позор. Он такой " + oldOwlsHouse.getCleanness() + ", удивительно, что не опрокинулся раньше!"); 
 
       String cornerState = oldOwlsHouse.getCornerCleanliness(0).toString();
       String thingInCornerLooksLike = oldOwlsHouse.getThingsInCorner(0).get(0).looksLike().toString();
       System.out.println("Персонаж " + kenga.getName() + " видит " + cornerState + " угол");
  
-      kenga.sayToOne(owl, "Вы только посмотрите, какой он " + cornerState +
-                      "! Там " + thingInCornerLooksLike);
+      kenga.sayToOne(owl, "Вы только посмотрите, какой он " + cornerState + "! Там " + thingInCornerLooksLike);
     }
 
 		owl.sayToOne(kenga, "Это моя " + Thing.Sponge.toString());
@@ -202,5 +199,29 @@ public class Story {
 		if (!kenga.distinguish(Thing.Sponge, Thing.Fungus)) {
 			System.out.println(", то в хорошие времена мы живем!");
 		}
+    
+    System.out.println();
+    
+    // Story part 3
+    
+    tinyRu.hideInHouse(oldOwlsHouse);
+    kenga.sayToOne(tinyRu, "Ру, милый, не полагается так разговаривать с тем, кто умеет написать слово \"суббота\"");
+    nearOwlHouse.addCharacters(christopherRobin, kenga, owl, rabbit, tinyRu);
+
+    nearOwlHouse.moveWithMessage(poohAndPig, "пришли к локации");
+    pooh.singSongToAll(poohSong);
+
+    CharactersGroup nearHouseGroup = new CharactersGroup(strategy, nearOwlHouse.getCharacters().toArray(new Character[0]));
+    nearHouseGroup.sayToOne(pooh, "что им очень понравилась песня");
+    
+    CharactersGroup pigletAndRu = new CharactersGroup(strategy, piglet, tinyRu);
+    Thing board = Thing.Board;
+    
+    Character someBody = new Character("Кто-то", strategy);
+    someBody.hitAnotherCharacter(owl);
+    board.fallDown();
+    pigletAndRu.doAction("Кинулись к предмету \"" + board + "\"");
+    iaIa.payAttention("это происшествие");
+    iaIa.doAction("обратился к персонажу " + christopherRobin);
   }
 }

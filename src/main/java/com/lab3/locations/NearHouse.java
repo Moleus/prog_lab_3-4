@@ -9,7 +9,7 @@ public class NearHouse extends InhabitedPlace {
   
   @Override
   public void removeCharacter(Character character) {
-    // System.out.printf("%s покинул место %s", character, name);
+    // System.out.printf("%s покинул место %s\n", character, name);
     super.removeCharacter(character);
   }
 }

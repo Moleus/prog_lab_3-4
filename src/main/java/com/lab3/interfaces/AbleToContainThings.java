@@ -8,6 +8,6 @@ public interface AbleToContainThings {
 	boolean containsThing(Thing thing); 
 	void addThing(Thing thing); 
 	ArrayList<Thing> getThings(); 
-	void removeThing(Thing thing); 
+	boolean removeThing(Thing thing); 
 }
 

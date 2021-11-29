@@ -49,5 +49,19 @@ public void sayToAll( String message) {
     System.out.printf("%s %s вытаскивает предмет \"%s\" из Дома.\n", name, actionCharacteristic, house);
     super.pullOut(thing, house, newPlace);
   }
+  
+  @Override
+  public Thing pickUpThing(Thing thing, Place fromPlace) {
+    System.out.printf("%s подняла вещь \"%s\"\n", name, thing);
+    return super.pickUpThing(thing, fromPlace);
+  }
 
+  @Override
+  public boolean dropThing(Place toPlace) {
+    boolean dropped = super.dropThing(toPlace);
+    if (dropped) {
+      System.out.printf("%s уронила вещь \"%s\"");
+    }
+    return dropped;
+  }
 }

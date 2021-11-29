@@ -48,11 +48,26 @@ public class CharactersGroup implements AbleToInteractWithThings {
     System.out.printf("%s понесли предмет \"%\" из локации \"%s\" на локацию \"%s\"\n", getNames(), thing, oldPlace, newPlace);
     strategy.moveThingToPlace(thing, oldPlace, newPlace); 
   }
+  
+  @Override
+  public Thing getThingInHands() { 
+    for (Character character : characters) {
+      if (character.getThingInHands() != null) {return character.getThingInHands();}
+    }
+    return null;
+  }
 
   @Override
-	public void pickUpThing(Thing thing, Place fromPlace) {
+  public boolean dropThing(Place toPlace) { 
+    Thing thingInHands = this.getThingInHands();
+    boolean dropped = this.strategy.dropThing(thingInHands, toPlace); 
+    return dropped;
+  }
+
+  @Override
+	public Thing pickUpThing(Thing thing, Place fromPlace) {
     System.out.printf("%s вытащили предмет \"%\" из локации \"%s\"\n", getNames(), thing, fromPlace);
-    strategy.pickUpThing(thing, fromPlace); 
+    return strategy.pickUpThing(thing, fromPlace); 
   }
 
   @Override
@@ -62,12 +77,19 @@ public class CharactersGroup implements AbleToInteractWithThings {
   }
   
   public void sayToAll(String message) {
-    if (!isInSameLocation()) {
-      // throw "Characters in group should share same location";
-    }
+    if (!isInSameLocation()) { return; }
     System.out.printf("%s сказали всем: %s\n", getNames(), message);   
     String heardCharacters = strategy.sayToAll(characters.get(0).getPlace(), message);
     System.out.println("Персонажи " + heardCharacters + " услышали: " + message);   
+  }
+  
+  public void sayToOne(Character character, String message) {
+    System.out.printf("%s сказали персонажу %s %s\n", this.getNames(), character, message);   
+    strategy.sayToOne(character, message);
+  }
+  
+  public void doAction(String action) {
+    System.out.printf("%s %s\n", this.getNames(), action);
   }
   
   public boolean isInSameLocation() {

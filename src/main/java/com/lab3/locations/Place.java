@@ -37,13 +37,14 @@ public class Place implements AbleToContainThings {
 		return things;
 	}
 
-	public void removeThing(Thing thing) {
+	public boolean removeThing(Thing thing) {
 		for(Thing e : things){
 			if(e.equals(thing)){
 				things.remove(e);
-				return;
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	@Override

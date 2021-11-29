@@ -1,7 +1,5 @@
 package com.lab3.enums;
 
-import java.util.Random;
-
 import com.lab3.interfaces.AbleGetDirty;
 
 public enum Thing implements AbleGetDirty {
@@ -26,6 +24,7 @@ public enum Thing implements AbleGetDirty {
   Towel("полотенце"),
 	Fungus("поганки"),
 	Doormat("дырявый половик"),
+	Board("Деревянная доска"),
   ;
 
 	private String str;
@@ -44,6 +43,10 @@ public enum Thing implements AbleGetDirty {
     return this.cleanliness ;
   }
 
+  public void fallDown() { 
+    System.out.printf("%s упала на землю\n", this.toString());
+  }
+
   public void setCleanliness(Cleanliness newCleanliness) { 
     this.cleanliness = newCleanliness;
   }
@@ -52,5 +55,4 @@ public enum Thing implements AbleGetDirty {
 	public String toString() {
 			return getCleanString() + this.str;
 	}
-
 }

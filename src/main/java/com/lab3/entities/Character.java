@@ -18,11 +18,13 @@ import com.lab3.interfaces.AbleToInteractWithThings;
 public class Character extends BaseCharacter implements AbleToInteractWithThings{
   protected InhabitedPlace place;
   protected final String name;
-  private boolean heardFlag = false;
-  private InteractionStrategy strategy;
-  private ArrayList<String> heardPhrases = new ArrayList<String>();
+  protected boolean happyFlag = false;
+  protected Thing thingInHands; 
+  protected InteractionStrategy strategy;
+  protected boolean heardFlag = false;
+  protected ArrayList<String> heardPhrases = new ArrayList<String>();
 
-  Character(String name, InteractionStrategy strategy) { 
+  public Character(String name, InteractionStrategy strategy) { 
     this.name = name;
     this.strategy = strategy;
   }
@@ -57,17 +59,22 @@ public class Character extends BaseCharacter implements AbleToInteractWithThings
   public void setHeard(boolean flag) {
     this.heardFlag = flag;
   }
+  
+  public void beHappy(boolean flag) { this.happyFlag = flag; }
+
+  public boolean isHappy() { return this.happyFlag; }
 
   public void liftupThing(Rope rope, Thing thing) {
     System.out.println("Персонаж " + this.getName() + " поднимает предмет \"" + thing.toString() + "\" с помощью приспособления \"" + rope.toString() + "\"");
   }
 
   public void sayToOne(Character character, String message) { 
-    character.setHeard(true);
+    strategy.sayToOne(character, message);
   }
-
-  public void sayToOne(Character character) { 
-    character.setHeard(true);
+  
+  public void hitAnotherCharacter(Character character) { 
+    System.out.printf("%s толкнул персонажа %s\n", name, character);
+    character.dropThing(character.getPlace());
   }
 
 	public Thing getRandomFurniture() {
@@ -80,8 +87,21 @@ public class Character extends BaseCharacter implements AbleToInteractWithThings
   }
   
   @Override
-	public void pickUpThing(Thing thing, Place fromPlace) {
-    this.strategy.pickUpThing(thing, fromPlace); 
+  public boolean dropThing(Place toPlace) {
+    boolean dropped = this.strategy.dropThing(thingInHands, toPlace); 
+    thingInHands = null;
+    return dropped;
+  }
+
+  @Override
+	public Thing pickUpThing(Thing thing, Place fromPlace) {
+    thingInHands = thing;
+    return this.strategy.pickUpThing(thing, fromPlace); 
+  }
+  
+  @Override
+  public Thing getThingInHands() {
+    return this.thingInHands;
   }
 
   @Override

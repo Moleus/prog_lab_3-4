@@ -30,7 +30,12 @@ public class Pooh extends Character {
   
   public void singSong(Song song, Character toCharacter) {
     System.out.printf("%s поёт %s персонажу %s\n", this.name, song.getTitle(), toCharacter.getName());
-    super.sayToOne(toCharacter);
+    super.sayToOne(toCharacter, song.getTitle());
+  }
+
+  public void singSongToAll(Song song) {
+    System.out.printf("%s поёт %s всем\n", this.name, song.getTitle());
+    super.sayToAll(song.getTitle());
   }
 
   @Override

@@ -9,7 +9,6 @@ import com.lab3.strategies.InteractionStrategy;
 public class Piglet extends Character {
 	private String actionCharacteristic = "похрюкивая";
   protected ExcitementLevel excitement;
-  protected boolean happyFlag = false;
   protected Ears ears;
 
   public Piglet(String name, InteractionStrategy strategy) { 
@@ -44,8 +43,6 @@ public class Piglet extends Character {
     }
   }
   
-  public boolean isHappy() {return happyFlag;}
-
   public class Ears {
     private String earsColor;
     private String earsFeeling;

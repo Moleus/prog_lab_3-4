@@ -41,6 +41,10 @@ public class InhabitedPlace extends Place implements AbleToContainCharacters {
 
 	public void addCharacters(Character ... new_characters) {
 		for (Character e : new_characters) {
+			if (e.getPlace() != null) {
+				InhabitedPlace prev_place = e.getPlace();
+				prev_place.removeCharacter(e);
+			}
 			characters.add(e);
 			e.setPlace(this);
 		}
@@ -48,11 +52,10 @@ public class InhabitedPlace extends Place implements AbleToContainCharacters {
 	
 	public void moveWithMessage(Character character, String message) {
 		System.out.printf("%s %s\n", character, message);
-		if (character.getPlace() == null) {
-			return;
+		if (character.getPlace() != null) {
+			InhabitedPlace prev_place = character.getPlace();
+			prev_place.removeCharacter(character);
 		}
-		InhabitedPlace prev_place = character.getPlace();
-		prev_place.removeCharacter(character);
 		this.addCharacters(character);
 	}
 

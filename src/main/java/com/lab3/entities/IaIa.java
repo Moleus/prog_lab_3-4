@@ -12,7 +12,7 @@ public class IaIa extends Character {
   
   public void payAttention(String action) {
     String res = name;
-    if (!paysAttention) {res += " не ";}
-    System.out.printf("%s обратил внимания на %", res, action);
+    if (!paysAttention) {res += " не";}
+    System.out.printf("%s обратил внимания на %s\n", res, action);
   }
 }

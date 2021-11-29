@@ -1,6 +1,7 @@
 package com.lab3.strategies;
 
 import com.lab3.enums.Thing;
+import com.lab3.exceptions.ThingNotFoundException;
 import com.lab3.locations.House;
 import com.lab3.locations.InhabitedPlace;
 import com.lab3.locations.Place;
@@ -17,8 +18,18 @@ public class InteractWithOthers implements InteractionStrategy {
   }
 
   @Override
-  public void pickUpThing(Thing thing, Place fromPlace) {
-    fromPlace.removeThing(thing);
+  public Thing pickUpThing(Thing thing, Place fromPlace) {
+    if (!fromPlace.removeThing(thing)) {
+      throw new ThingNotFoundException(thing, fromPlace);
+    }
+    return thing;
+  }
+  
+  @Override
+  public boolean dropThing(Thing thing, Place toPlace) {
+    if (thing == null) return false;
+    toPlace.addThing(thing);
+    return true;
   }
 
   @Override
@@ -42,6 +53,11 @@ public class InteractWithOthers implements InteractionStrategy {
 	public Thing getRandomFurniture() {
 		return Thing.values()[new Random().nextInt(4)];
 	}
+  
+  @Override
+  public void sayToOne(Character character, String message) {
+    character.setHeard(true);
+  }
     
   private boolean tryToHear(String message) {
     if (getRandomBoolean()) {
