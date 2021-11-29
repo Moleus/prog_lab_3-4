@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.lab3.enums.Thing;
 import com.lab3.interfaces.AbleToInteractWithThings;
+import com.lab3.locations.House;
 import com.lab3.locations.Place;
 import com.lab3.strategies.InteractionStrategy;
 
@@ -18,9 +19,13 @@ public class CharactersGroup implements AbleToInteractWithThings {
     }
     this.strategy = strategy;
   }
+  
+  public ArrayList<Character> getCharacters() {
+    return characters;
+  }
 
-  protected String getNames() {
-    String charactersStr = " ";
+  public String getNames() {
+    String charactersStr = "";
     for (int i = 0; i < characters.size(); i++) {
       charactersStr += characters.get(i);
       if (i == characters.size() - 1) { break; }
@@ -32,18 +37,31 @@ public class CharactersGroup implements AbleToInteractWithThings {
     }
     return charactersStr;
   }
+    
+  @Override
+	public Thing getRandomFurniture() {
+    return strategy.getRandomFurniture();
+	}
 
+  @Override
 	public void moveThingToPlace(Thing thing, Place oldPlace, Place newPlace) {
+    System.out.printf("%s понесли предмет \"%\" из локации \"%s\" на локацию \"%s\"\n", getNames(), thing, oldPlace, newPlace);
     strategy.moveThingToPlace(thing, oldPlace, newPlace); 
   }
 
   @Override
-	public void pickUpThing( Thing thing, Place fromPlace) {
+	public void pickUpThing(Thing thing, Place fromPlace) {
+    System.out.printf("%s вытащили предмет \"%\" из локации \"%s\"\n", getNames(), thing, fromPlace);
     strategy.pickUpThing(thing, fromPlace); 
   }
+
+  @Override
+	public void pullOut(Thing thing, House house, Place newPlace) {
+    System.out.printf("%s вытащили предмет \"%s\" из Дома и понесли его на локацию \"%s\"\n", getNames(), thing, newPlace);
+    strategy.pullOut(thing, house, newPlace);
+  }
   
-public void sayToAll( String message) {
-    // TODO Exception: share same location 
+  public void sayToAll(String message) {
     if (!isInSameLocation()) {
       // throw "Characters in group should share same location";
     }

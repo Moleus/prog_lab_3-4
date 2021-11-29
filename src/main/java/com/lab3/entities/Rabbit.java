@@ -7,12 +7,48 @@ import com.lab3.strategies.InteractionStrategy;
 
 public class Rabbit extends Character {
 	private String actionCharacteristic = "в припрыжку";
+  protected boolean impatience = false;
+  private Feet feet;
 
-  public Rabbit(String name, InteractionStrategy strategy) { super(name, strategy); }
+  public Rabbit(String name, InteractionStrategy strategy) { 
+    super(name, strategy); 
+    this.feet = new Feet();
+  }
+  
+  public void setImpatientce(boolean state) {
+    this.impatience = state;
+    if (state == true) {
+      shuffleFeet();
+      return;
+    }
+    stopShufflingFeet();
+  }
+
+  public boolean isImpatient() { return this.impatience; }
+
+  public void shuffleFeet() {
+    feet.shuffle();
+  } 
+
+  public void stopShufflingFeet() {
+    feet.unShuffle();
+  } 
+  
+  public class Feet {
+    protected boolean shuffling = false;
+    public void shuffle() {
+      System.out.println(Rabbit.this.name + " нетерпиливо переминается с ноги на ногу");
+      this.shuffling = true;
+    }
+    public void unShuffle() {
+      System.out.println(Rabbit.this.name + " перестал переминаться с ноги на ногу");
+      this.shuffling = false;
+    }
+  }
 
   @Override
   public void doAction(String action) {
-    System.out.printf("%s %s %s", name, actionCharacteristic, action);
+    System.out.printf("%s %s %s\n", name, actionCharacteristic, action);
   }
 
   @Override
@@ -28,8 +64,8 @@ public void sayToAll( String message) {
   }
   
   @Override
-  public void pullOut(House house, Place newPlace, Thing thing) {
+  public void pullOut(Thing thing, House house, Place newPlace) {
     System.out.printf("%s %s вытаскивает предмет \"%s\" из Дома.\n", name, actionCharacteristic, house);
-    super.pullOut(house, newPlace, thing);
+    super.pullOut(thing, house, newPlace);
   }
 }

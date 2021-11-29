@@ -11,7 +11,7 @@ public class Rope extends AbstractTool {
      System.out.println(this.getName() + " поднимает " + thing.toString());
   }
 
-  public void pullOutThig(Thing thing) {
+  public void PickUpThingThig(Thing thing) {
      System.out.println(thing.toString() + " вытаскивают, используя " + this.getName());
   }
   

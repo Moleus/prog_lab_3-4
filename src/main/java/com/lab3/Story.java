@@ -4,13 +4,12 @@ import java.util.ArrayList;
 
 import com.lab3.entities.*;
 import com.lab3.entities.Character;
-import com.lab3.locations.CornerInHouse;
-import com.lab3.locations.House;
-import com.lab3.locations.NearHouse;
-import com.lab3.strategies.InteractWithOthers;
-import com.lab3.strategies.InteractionStrategy;
+import com.lab3.locations.*;
+import com.lab3.misc.Song;
+import com.lab3.strategies.*;
 import com.lab3.things.Rope;
 import com.lab3.enums.*;
+import com.lab3.interfaces.CharactersGroupsGenerate;
 
 public class Story {
   public static ArrayList<CornerInHouse> create4Corners() {
@@ -28,7 +27,6 @@ public class Story {
 		House oldOwlsHouse = new House("Дом Совы", AgeTypes.OLD, Cleanliness.getRandomState(), corners);
 
     oldOwlsHouse.addThings(Thing.Chair, Thing.Painting, Thing.Shawl, Thing.Sponge);
-
     return oldOwlsHouse;
   }
 
@@ -37,13 +35,16 @@ public class Story {
       allArrayList.add(e);
     }
   }
+
   public static void main(String ... args) {
     ArrayList<Character> allCharacters = new ArrayList<Character>();
     
 		House oldOwlsHouse = prepareHouse();
 		House newOwlsHouse = new House("Дом Совы", AgeTypes.NEW, Cleanliness.CLEAN, create4Corners());
 
-    NearHouse nearHouse = new NearHouse("Возле бывшего дома Совы");
+    NearHouse nearOwlHouse = new NearHouse("Возле бывшего дома Совы");
+    NearHouse nearIaHouse = new NearHouse("Возле дома Иа");
+    InhabitedPlace darkForest = new InhabitedPlace("Дремучий Лес");
 
     InteractionStrategy strategy = new InteractWithOthers();
 
@@ -57,20 +58,62 @@ public class Story {
 		Piglet piglet = new Piglet("Пяточок", strategy);
     
     fillAllCharacters(allCharacters, christopherRobin, iaIa, kenga, owl, pooh, rabbit, tinyRu, piglet);
+    
+    // Кролик попереминался и ушёл
+    nearIaHouse.addCharacters(iaIa, rabbit);
+    rabbit.setImpatientce(true);
+    nearIaHouse.removeCharacter(rabbit);
+    
+    
+    // Пух разыскал пяточка
+    pooh.lookFor(piglet);
+    CharactersGroup poohAndPig = new CharactersGroup(strategy, pooh, piglet);
+    darkForest.moveWithMessage(poohAndPig, "вошли в");
+    
+    // Пух придумал песню
+    Song poohSong = pooh.makeupNewSong("Хвалебную Песню (Кричалку)", 7);
+    
+    // Пяточок начинает краснеть 
+    piglet.changeExcitement(true);
+    piglet.cough();
+    piglet.cough();
 
-    nearHouse.addCharacters(christopherRobin, kenga, owl, pooh, rabbit, tinyRu, piglet);
+    pooh.singSong(poohSong, piglet);
+    if (piglet.hasHeard()) {
+      piglet.changeExcitement(true);
+    }
+
+    String importantStanzas = poohSong.getImportantStanzas().get(0);
+    String importantStanzas2 = poohSong.getImportantStanzas().get(1);
+    if (!piglet.hasHeard(importantStanzas)) {
+      System.out.printf("Никто никогда ещё не пел Пяточку, чтобы он \"%s\"\n", importantStanzas);
+    }
+    piglet.hasHeard(importantStanzas2);
+    
+    if (piglet.hasHeard(importantStanzas2)) {
+      System.out.printf("%s очень хотел попросить спеть строфу \"%s\" еще раз \n", piglet, importantStanzas2);
+    }
+
+    if (piglet.isHappy()) {
+      System.out.printf("%s вздохнул от счастья\n", piglet);
+    }
+    
+    System.out.println();
+    
+    // Second part of the Story
+    nearOwlHouse.addCharacters(christopherRobin, kenga, owl, pooh, rabbit, tinyRu, piglet);
 
     // описать, кто собрался на поляне
-    nearHouse.describe();
+    nearOwlHouse.describe();
     
     // Винни и Пяточoк подошли к бывшему дому Совы
-    nearHouse.acceptCharater(pooh, "подошёл к бывшему дому Совы");
-    nearHouse.acceptCharater(piglet, "подошёл к бывшему дому Совы");
+    nearOwlHouse.moveWithMessage(poohAndPig, "подошёли к локации");
+    // nearOwlHouse.moveWithMessage(piglet, "подошёл к бывшему дому Совы");
     
     // на поляне были все, кроме
     System.out.print("На поляне были все, кроме персонажа с именем ");
     for (Character character : allCharacters) {
-      if (!nearHouse.containsCharacter(character)) {
+      if (!nearOwlHouse.containsCharacter(character)) {
         System.out.print(character.getName() + ", ");
       }
     }
@@ -85,18 +128,31 @@ public class Story {
     rabbit.sayToAll("Всем нужно " + task);
     System.out.println();
     
+    CharactersGroup heardCharactersGroup = new CharactersGroup(strategy, nearOwlHouse.getCharacters().toArray(new Character[0]));
     // Они где-то раздобыли канат и вытаскивали стулья и картины, и всякие вещи из прежнего дома Совы, чтобы все было готово для переезда в новый дом. 
-    Character someOne = nearHouse.getRandomCharacter();
+    Character someOne = nearOwlHouse.getRandomCharacter();
     while (!someOne.hasHeard()) {
-      someOne = nearHouse.getRandomCharacter();
+      someOne = nearOwlHouse.getRandomCharacter();
     }
     Rope rope = new Rope("канат");
     someOne.doAction("Раздобыл " + rope.getName());
     
-    for (Character c : nearHouse.getCharacters()) {
-      if (!c.hasHeard()) continue;
-      Thing someThing = c.getRandomFurniture();
-      c.pullOut(oldOwlsHouse, nearHouse, someThing);
+    CharactersGroupsGenerate groupsGenerator = new CharactersGroupsGenerate() {
+      @Override 
+      public ArrayList<CharactersGroup> genGroups(InteractionStrategy strategy, Character ... characters) { 
+        ArrayList<CharactersGroup> groups = new ArrayList<CharactersGroup>();
+        for (int i = 0; i <= characters.length / 2 + 1; i+=2) {
+          groups.add(new CharactersGroup(strategy, characters[i], characters[i + 1]));
+        }
+        return groups;
+      }
+    };
+    
+    ArrayList<CharactersGroup> groups = groupsGenerator.genGroups(strategy, kenga, owl, rabbit, tinyRu, piglet, pooh);
+    
+    for (CharactersGroup group : groups) {
+      Thing someThing = group.getRandomFurniture();
+      group.pullOut(someThing, oldOwlsHouse, nearOwlHouse);
     }
 
     System.out.println();
@@ -122,9 +178,9 @@ public class Story {
 
 		Thing yetAnoterThing = someOne.getRandomFurniture();
 
-    someOne = nearHouse.getRandomCharacter();
+    someOne = nearOwlHouse.getRandomCharacter();
     someOne.liftupThing(rope, yetAnoterThing);
-    tinyRu.appear(nearHouse, "верхом на предмете \"" + yetAnoterThing.toString() + "\"");
+    tinyRu.appear(nearOwlHouse, "верхом на предмете \"" + yetAnoterThing.toString() + "\"");
     
     System.out.println();
     

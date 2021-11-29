@@ -6,10 +6,11 @@ import java.util.Random;
 import com.lab3.interfaces.AbleToContainCharacters;
 
 import com.lab3.entities.Character;
+import com.lab3.entities.CharactersGroup;
 
 public class InhabitedPlace extends Place implements AbleToContainCharacters {
 	protected ArrayList<Character> characters;
-	protected InhabitedPlace(String name) { 
+	public InhabitedPlace(String name) { 
 		super(name);
 		characters = new ArrayList<Character>();
 	}
@@ -45,7 +46,7 @@ public class InhabitedPlace extends Place implements AbleToContainCharacters {
 		}
 	}
 	
-	public void acceptCharater(Character character, String message) {
+	public void moveWithMessage(Character character, String message) {
 		System.out.printf("%s %s\n", character, message);
 		if (character.getPlace() == null) {
 			return;
@@ -53,6 +54,16 @@ public class InhabitedPlace extends Place implements AbleToContainCharacters {
 		InhabitedPlace prev_place = character.getPlace();
 		prev_place.removeCharacter(character);
 		this.addCharacters(character);
+	}
+
+	public void moveWithMessage(CharactersGroup group, String message) { 
+		System.out.printf("%s %s %s\n", group.getNames(), message, this.name);
+		for (Character character : group.getCharacters()) {
+			InhabitedPlace prev_place = character.getPlace();
+			if (prev_place == null) { continue; }
+			prev_place.removeCharacter(character);
+			this.addCharacters(character);
+		}
 	}
 
 	public ArrayList<Character> getCharacters() {

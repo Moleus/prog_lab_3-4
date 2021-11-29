@@ -50,8 +50,8 @@ public class Kenga extends Character {
   }
   
   @Override
-  public void pullOut(House house, Place newPlace, Thing thing) {
+  public void pullOut(Thing thing, House house, Place newPlace) {
     System.out.printf("%s в припрыжку вытаскивает предмет \"%s\" из Дома.\n", name, house);
-    super.pullOut(house, newPlace, thing);
+    super.pullOut(thing, house, newPlace);
   }
 }

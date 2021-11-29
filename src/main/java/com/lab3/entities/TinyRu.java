@@ -12,16 +12,16 @@ public class TinyRu extends Character {
   public TinyRu(String name, InteractionStrategy strategy) { super(name, strategy); }
 
 	public void hideInHouse(House house) {
-    house.acceptCharater(this, "исчез в Доме");
+    house.moveWithMessage(this, "исчез в Доме");
 	}
 
 	public void appear(InhabitedPlace place, String action) {
-    place.acceptCharater(this, "появился " + action);
+    place.moveWithMessage(this, "появился " + action);
 	}
 
   @Override
   public void doAction(String action) {
-    System.out.printf("%s %s %s", name, actionCharacteristic, action);
+    System.out.printf("%s %s %s\n", name, actionCharacteristic, action);
   }
 
   @Override
@@ -37,8 +37,8 @@ public void sayToAll( String message) {
   }
   
   @Override
-  public void pullOut(House house, Place newPlace, Thing thing) {
+  public void pullOut(Thing thing, House house, Place newPlace) {
     System.out.printf("%s %s вытаскивает предмет \"%s\" из Дома.\n", name, actionCharacteristic, house);
-    super.pullOut(house, newPlace, thing);
+    super.pullOut(thing, house, newPlace);
   }
 }

@@ -7,13 +7,13 @@ import com.lab3.locations.Place;
 import com.lab3.strategies.InteractionStrategy;
 
 public class Owl extends Character{
-  // private static final Action PULLOUT = null;
+  // private static final Action PickUpThing = null;
 	private String actionCharacteristic = "со старческой нерасторопностью";
 
 	public Owl(String name, InteractionStrategy strategy) { super(name, strategy); }
   
   public void doAction(String action) {
-    System.out.printf("%s %s %s", name, actionCharacteristic, action);
+    System.out.printf("%s %s %s\n", name, actionCharacteristic, action);
   }
 
 	void responseWithIndignation(String respone) {
@@ -45,9 +45,9 @@ public void sayToAll( String message) {
   }
   
   @Override
-  public void pullOut(House house, Place newPlace, Thing thing) {
+  public void pullOut(Thing thing, House house, Place newPlace) {
     System.out.printf("%s %s вытаскивает предмет \"%s\" из Дома.\n", name, actionCharacteristic, house);
-    super.pullOut(house, newPlace, thing);
+    super.pullOut(thing, house, newPlace);
   }
 
 }

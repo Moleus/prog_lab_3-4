@@ -13,7 +13,7 @@ abstract class Character {
 
 	+ doAction(String sm) 
 	+ obtain(Thing) 
-	+ pullOut(Thing ..., Place) 
+	+ PickUpThing(Thing ..., Place) 
 	+ say(String, Character)
 
 	+ equals(Object) : boolean
@@ -142,7 +142,7 @@ interface AbleToHear {
 interface AbleToInteractWithThings {
 	moveThingToPlace(Thing thing, Place place)
 	removeThingFromPlace(Thing thing)	
-	pickUpThing(Thing thing)
+	PickUpThing(Thing thing)
 }
 
 interface Moveable { 
