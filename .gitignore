@@ -21,7 +21,7 @@ report/tex_out/
 src/**/*.sh
 !src/**/*.java
 !report/*.tex
-!report/imgs/*.png
-!report/imgs/*.jpg
+!report/imgs/**.png
+!report/imgs/**.jpg
 
 **/private*
