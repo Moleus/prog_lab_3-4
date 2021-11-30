@@ -16,7 +16,6 @@ public class House extends InhabitedPlace implements AbleToAge {
 	private Cleanliness houseCleanliness;
 	private Character owner;
 	private ArrayList<CornerInHouse> corners;
-	private ArrayList<Thing> things;
 	
 	public House(String name, AgeTypes houseAgeType, Cleanliness houseCleanliness, ArrayList<CornerInHouse> corners) {
 		super(name);

@@ -2,7 +2,6 @@ package com.lab3.entities;
 
 import com.lab3.enums.Thing;
 import com.lab3.locations.House;
-import com.lab3.locations.InhabitedPlace;
 import com.lab3.locations.Place;
 import com.lab3.strategies.InteractionStrategy;
 

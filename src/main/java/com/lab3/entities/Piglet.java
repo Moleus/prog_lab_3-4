@@ -64,6 +64,9 @@ public class Piglet extends Character {
       earsColor = "red";
       earsFeeling = "burning";
     }
+    
+    public String getEarsColor() { return earsColor; }
+    public String getEarsFeeling() { return earsFeeling; }
   }
 
   @Override

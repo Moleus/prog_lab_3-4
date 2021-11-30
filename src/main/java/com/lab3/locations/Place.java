@@ -6,7 +6,7 @@ import com.lab3.enums.Thing;
 import com.lab3.interfaces.AbleToContainThings;
 
 public class Place implements AbleToContainThings {
-	private ArrayList<Thing> things;
+	protected ArrayList<Thing> things;
 	protected String name;
 
 	protected Place(String name) { 
