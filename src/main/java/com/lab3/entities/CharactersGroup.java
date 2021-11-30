@@ -3,13 +3,12 @@ package com.lab3.entities;
 import java.util.ArrayList;
 
 import com.lab3.enums.Thing;
-import com.lab3.interfaces.AbleToInteractWithThings;
 import com.lab3.locations.House;
 import com.lab3.locations.Place;
 import com.lab3.strategies.InteractionStrategy;
 
 
-public class CharactersGroup implements AbleToInteractWithThings {
+public class CharactersGroup {
   protected ArrayList<Character> characters = new ArrayList<Character>();
   private InteractionStrategy strategy;
   
@@ -38,49 +37,13 @@ public class CharactersGroup implements AbleToInteractWithThings {
     return charactersStr;
   }
     
-  @Override
 	public Thing getRandomFurniture() {
     return strategy.getRandomFurniture();
 	}
 
-  @Override
-	public void moveThingToPlace(Thing thing, Place oldPlace, Place newPlace) {
-    System.out.printf("%s понесли предмет \"%\" из локации \"%s\" на локацию \"%s\"\n", getNames(), thing, oldPlace, newPlace);
-    strategy.moveThingToPlace(thing, oldPlace, newPlace); 
-  }
-  
-  @Override
-  public Thing getThingInHands() { 
-    for (Character character : characters) {
-      if (character.getThingInHands() != null) {return character.getThingInHands();}
-    }
-    return null;
-  }
-
-  @Override
-  public boolean dropThing(Place toPlace) { 
-    Thing thingInHands = this.getThingInHands();
-    boolean dropped = this.strategy.dropThing(thingInHands, toPlace); 
-    return dropped;
-  }
-
-  @Override
-	public Thing pickUpThing(Thing thing, Place fromPlace) {
-    System.out.printf("%s вытащили предмет \"%\" из локации \"%s\"\n", getNames(), thing, fromPlace);
-    return strategy.pickUpThing(thing, fromPlace); 
-  }
-
-  @Override
 	public void pullOut(Thing thing, House house, Place newPlace) {
     System.out.printf("%s вытащили предмет \"%s\" из Дома и понесли его на локацию \"%s\"\n", getNames(), thing, newPlace);
     strategy.pullOut(thing, house, newPlace);
-  }
-  
-  public void sayToAll(String message) {
-    if (!isInSameLocation()) { return; }
-    System.out.printf("%s сказали всем: %s\n", getNames(), message);   
-    String heardCharacters = strategy.sayToAll(characters.get(0).getPlace(), message);
-    System.out.println("Персонажи " + heardCharacters + " услышали: " + message);   
   }
   
   public void sayToOne(Character character, String message) {
@@ -91,14 +54,4 @@ public class CharactersGroup implements AbleToInteractWithThings {
   public void doAction(String action) {
     System.out.printf("%s %s\n", this.getNames(), action);
   }
-  
-  public boolean isInSameLocation() {
-    for (Character c : characters) {
-      if (!c.getPlace().equals(characters.get(0).getPlace())) {
-        return false;
-      }
-    }
-    return true;
-  }
-  
 }

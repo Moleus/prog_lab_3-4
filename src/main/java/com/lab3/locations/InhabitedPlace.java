@@ -40,32 +40,29 @@ public class InhabitedPlace extends Place implements AbleToContainCharacters {
 	}
 
 	public void addCharacters(Character ... new_characters) {
-		for (Character e : new_characters) {
-			if (e.getPlace() != null) {
-				InhabitedPlace prev_place = e.getPlace();
-				prev_place.removeCharacter(e);
-			}
-			characters.add(e);
-			e.setPlace(this);
+		for (Character c : new_characters) {
+			this.moveCharacter(c);
 		}
+	}
+	
+	private void moveCharacter(Character c) {
+			if (c.getPlace() != null) {
+				InhabitedPlace prev_place = c.getPlace();
+				prev_place.removeCharacter(c);
+			}
+			characters.add(c);
+			c.setPlace(this);
 	}
 	
 	public void moveWithMessage(Character character, String message) {
 		System.out.printf("%s %s\n", character, message);
-		if (character.getPlace() != null) {
-			InhabitedPlace prev_place = character.getPlace();
-			prev_place.removeCharacter(character);
-		}
-		this.addCharacters(character);
+		this.moveCharacter(character);
 	}
 
 	public void moveWithMessage(CharactersGroup group, String message) { 
 		System.out.printf("%s %s %s\n", group.getNames(), message, this.name);
 		for (Character character : group.getCharacters()) {
-			InhabitedPlace prev_place = character.getPlace();
-			if (prev_place == null) { continue; }
-			prev_place.removeCharacter(character);
-			this.addCharacters(character);
+			this.moveCharacter(character);
 		}
 	}
 

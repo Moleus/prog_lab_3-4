@@ -8,13 +8,11 @@ import com.lab3.things.Rope;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Random;
 
 import com.lab3.enums.Thing;
 import com.lab3.exceptions.NullPlaceException;
-import com.lab3.interfaces.AbleToInteractWithThings;
 
-public class Character extends BaseCharacter implements AbleToInteractWithThings{
+public class Character extends BaseCharacter {
   protected InhabitedPlace place;
   protected final String name;
   protected boolean happyFlag = false;

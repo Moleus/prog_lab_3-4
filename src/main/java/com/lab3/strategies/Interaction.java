@@ -10,7 +10,7 @@ import java.util.Random;
 
 import com.lab3.entities.Character;
 
-public class InteractWithOthers implements InteractionStrategy {
+public class Interaction implements InteractionStrategy {
   @Override 
   public void moveThingToPlace(Thing thing, Place oldPlace, Place newPlace) {
     oldPlace.removeThing(thing);

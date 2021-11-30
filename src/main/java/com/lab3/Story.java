@@ -12,23 +12,6 @@ import com.lab3.enums.*;
 import com.lab3.interfaces.CharactersGroupsGenerate;
 
 public class Story {
-  public static ArrayList<CornerInHouse> create4Corners() {
-    ArrayList<CornerInHouse> corners = new ArrayList<CornerInHouse>();      
-    for (int i = 0; i < 4; i++) {
-      Cleanliness cleanState = Cleanliness.getRandomState();
-      corners.add(new CornerInHouse("угол", cleanState));
-    }
-    return corners;
-  }
-
-  public static House prepareHouse() { 
-    ArrayList<CornerInHouse> corners = create4Corners();
-    corners.get(0).addThing(Thing.Sponge);
-		House oldOwlsHouse = new House("Дом Совы", AgeTypes.OLD, Cleanliness.getRandomState(), corners);
-
-    oldOwlsHouse.addThings(Thing.Chair, Thing.Painting, Thing.Shawl, Thing.Sponge);
-    return oldOwlsHouse;
-  }
 
   public static void fillAllCharacters(ArrayList<Character> allArrayList, Character ... c) {
     for (Character e : c) {
@@ -37,16 +20,38 @@ public class Story {
   }
 
   public static void main(String ... args) {
+    class SceneBuilder {
+      public ArrayList<CornerInHouse> create4Corners() {
+        ArrayList<CornerInHouse> corners = new ArrayList<CornerInHouse>();      
+        for (int i = 0; i < 4; i++) {
+          Cleanliness cleanState = Cleanliness.getRandomState();
+          corners.add(new CornerInHouse("угол", cleanState));
+        }
+        return corners;
+      }
+
+      public House prepareHouse() { 
+        ArrayList<CornerInHouse> corners = create4Corners();
+        corners.get(0).addThing(Thing.Sponge);
+        House oldOwlsHouse = new House("Дом Совы", AgeTypes.OLD, Cleanliness.getRandomState(), corners);
+
+        oldOwlsHouse.addThings(Thing.Chair, Thing.Painting, Thing.Shawl, Thing.Sponge);
+        return oldOwlsHouse;
+      }
+    }
+    
+    SceneBuilder mainScene = new SceneBuilder();
+
     ArrayList<Character> allCharacters = new ArrayList<Character>();
     
-		House oldOwlsHouse = prepareHouse();
-		House newOwlsHouse = new House("Дом Совы", AgeTypes.NEW, Cleanliness.CLEAN, create4Corners());
+		House oldOwlsHouse = mainScene.prepareHouse();
+		House newOwlsHouse = new House("Дом Совы", AgeTypes.NEW, Cleanliness.CLEAN, mainScene.create4Corners());
 
-    NearHouse nearOwlHouse = new NearHouse("Возле бывшего дома Совы");
-    NearHouse nearIaHouse = new NearHouse("Возле дома Иа");
+    InhabitedPlace nearOwlHouse = new InhabitedPlace("Возле бывшего дома Совы");
+    InhabitedPlace nearIaHouse = new InhabitedPlace("Возле дома Кролика");
     InhabitedPlace darkForest = new InhabitedPlace("Дремучий Лес");
 
-    InteractionStrategy strategy = new InteractWithOthers();
+    InteractionStrategy strategy = new Interaction();
 
 		Human christopherRobin = new Human("Кристофер Робин", strategy);
 		IaIa iaIa = new IaIa("Иа-иа", strategy);
