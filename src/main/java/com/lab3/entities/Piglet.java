@@ -2,6 +2,7 @@ package com.lab3.entities;
 
 import com.lab3.enums.ExcitementLevel;
 import com.lab3.enums.Thing;
+import com.lab3.exceptions.ExcitementOutOfRangeException;
 import com.lab3.locations.House;
 import com.lab3.locations.Place;
 import com.lab3.strategies.InteractionStrategy;
@@ -25,9 +26,21 @@ public class Piglet extends Character {
 
   public void changeExcitement(boolean positive) {
     if (positive) {
-      excitement = excitement.increase();
+      try {
+        excitement = excitement.increase();
+      }
+      catch (ExcitementOutOfRangeException e) {
+        System.out.println("Пятачок настолько воодушевился, что больше не может");
+        return;
+      }
     } else {
-      excitement = excitement.decrease();
+      try {
+        excitement = excitement.decrease();
+      }
+      catch (ExcitementOutOfRangeException e) {
+        System.out.println("Воодушевление Пяточка вернулось в норму");
+        return;
+      }
     }
     switch (excitement) {
       case NORMAL:

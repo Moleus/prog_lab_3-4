@@ -1,6 +1,6 @@
 package com.lab3.exceptions;
 
-public class ExcitementOutOfRangeError extends Error {
+public class ExcitementOutOfRangeException extends Exception {
   public String getMessage() {
       return(" ExcitementLevel вышел за границы ");
   }
