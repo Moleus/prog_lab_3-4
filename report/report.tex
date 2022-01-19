@@ -10,7 +10,7 @@
 \usepackage[hidelinks]{hyperref} 
 
 % Poles settings:
-\usepackage[left=15mm, top=10mm, right=15mm, bottom=10mm, head=5mm, foot=9mm]{geometry}
+\usepackage[left=10mm, top=10mm, right=10mm, bottom=10mm, head=5mm, foot=9mm]{geometry}
 
 \usepackage{fontspec}
 \setmainfont{FreeSerif}
@@ -65,9 +65,12 @@
     enhanced, listing engine=minted, 
     listing file={#2}, 
     title=\filename{#2}, 
+    boxsep=0pt,left=5mm,right=0pt,top=2pt,bottom=0pt,
     minted language=java, 
     minted options={
+        baselinestretch=0.8,
         fontsize=\tiny,
+        #1
     },
     % minted style=default,
     overlay={%
@@ -75,7 +78,7 @@
         \fill[gray!25] (frame.south west) rectangle ([xshift=5mm]frame.north west);
     \end{tcbclipinterior}
     },
-    listing only,#1,
+    listing only,
     % title code={\path[dashed](title.south west)--(title.south east);},
     % frame code={\path[](frame.south west) rectangle (frame.north east);}
 }
@@ -111,7 +114,7 @@
 \input{task_rules.tex}
 \pagebreak
 
-\section{Описание предметной области для варианта 3617}
+\section{Описание предметной области для варианта 3617.1040}
 \input{task_text.tex}
 \pagebreak
 

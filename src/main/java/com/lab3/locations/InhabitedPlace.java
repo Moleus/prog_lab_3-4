@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.lab3.interfaces.AbleToContainCharacters;
-
 import com.lab3.entities.Character;
 import com.lab3.entities.CharactersGroup;
 
@@ -15,7 +14,6 @@ public class InhabitedPlace extends Place implements AbleToContainCharacters {
 		characters = new ArrayList<Character>();
 	}
 	
-	// Описать сцену
 	public void describe() {
 		if (characters.isEmpty()) {
 			System.out.println("На местности \"" + name + "\" никого нет.");

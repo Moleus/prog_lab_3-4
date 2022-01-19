@@ -6,7 +6,6 @@ import com.lab3.locations.Place;
 import com.lab3.strategies.InteractionStrategy;
 
 public class Human extends Character {
-
   public Human(String name, InteractionStrategy strategy) { super(name, strategy); }
   
   @Override
